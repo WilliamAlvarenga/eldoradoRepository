@@ -10,21 +10,19 @@ class Device{
 
     add(device){
 
-        device.toUperca
-
         if(!device){
             return Promise.reject('Device can not be null!')
         }
 
-        if(device.color){
-           var n = device.color.search(/[^a-z]/i)
+        if(device.COLOR){
+           var n = device.COLOR.search(/[^a-z]/i)
 
-            if(device.color.lenght > 16 || n > 0 ){
+            if(device.COLOR.lenght > 16 || n > 0 ){
                 return Promise.reject('Device color invalid!')
             }
         }
 
-        if(!device.partNumber || device.partNumber < 0){
+        if(!device.PARTNUMBER || device.PARTNUMBER < 0){
             return Promise.reject('PartNumber invalid!')
         }
 
