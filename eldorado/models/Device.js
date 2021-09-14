@@ -1,6 +1,7 @@
 //id auto, category- class ,color String max -16 - only letter - /[^a-z]/i, partNumber positive integer
 
 const repository = require('../repository/DeviceRepository')
+const categoryRepository = require('../repository/CategoryRepository')
 
 class Device{
     constructor(){
@@ -32,14 +33,30 @@ class Device{
 
     }
 
-    list(){
+    async list(){       
+      
+       let _device = await  repository.list()
 
-        return repository.list()
+        for (const item of _device) {
+            if(item.CATEGORY){
+               let _category = await categoryRepository.listById(item.CATEGORY)
+               item.CATEGORY = _category[0]
+            }
+        }    
+
+        return _device
+
     }
 
-    listById(id){
+   async listById(id){
         if(id){
-            return repository.listById(id)
+            let _device = await repository.listById(id)
+
+            if(_device[0].CATEGORY){
+                let _category = await categoryRepository.listById(item.CATEGORY)
+                _device[0].CATEGORY = _category[0]
+             }
+
         }
 
         return Promise.reject('Id can not be null!')
